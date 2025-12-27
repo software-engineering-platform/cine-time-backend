@@ -19,7 +19,7 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# Install wget for troubleshooting
+# Install wget (required for HEALTHCHECK)
 RUN apk add --no-cache wget
 
 # Create non-root user for security
@@ -37,6 +37,10 @@ USER appuser
 
 # Expose application port
 EXPOSE 8090
+
+# Health check using Spring Boot Actuator
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8090/actuator/health || exit 1
 
 # Run with optimal JVM settings for containers
 ENTRYPOINT ["java", \

@@ -40,3 +40,9 @@ logs/
 
 *.properties
 src/main/resources/application.properties
+
+### Claude Code ###
+.claude/
+
+### Environment Files ###
+.env
