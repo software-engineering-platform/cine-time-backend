@@ -28,9 +28,10 @@ RUN addgroup -g 1001 -S appgroup && \
 
 # Copy the built JAR from builder stage
 COPY --from=builder /app/target/*.jar app.jar
+COPY data/seed /app/data/seed
 
 # Set ownership
-RUN chown appuser:appgroup app.jar
+RUN chown -R appuser:appgroup /app
 
 # Switch to non-root user
 USER appuser
