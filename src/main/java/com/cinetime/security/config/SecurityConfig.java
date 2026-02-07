@@ -92,6 +92,7 @@ public class SecurityConfig {
     }
 
     private static final String[] AUTH_WHITELIST = {
+            "/actuator/health/**",
             "/api/auth/**",
             "/v3/api-docs",
             "/v3/api-docs/**",
